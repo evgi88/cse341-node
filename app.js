@@ -82,7 +82,7 @@ const options = {
 };
                       
 mongoose
-  .connect(MONGODB_URL)
+  .connect(MONGODB_URL, {useNewUrlParser: true})
   .then(result => {
     app.listen(PORT);
   })

@@ -117,3 +117,35 @@ exports.getOrders = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.getProductReviews = (req, res, next) => {
+  const prodId = req.params.productId;
+  Product.findById(prodId)
+    .then(product => {
+      res.render('shop/product-reviews', {
+        product: product,
+        pageTitle: product.title,
+        path: '/products'
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+exports.postAddProductReview = (req, res, next) => {
+  const prodId = req.params.productId;
+  const review = req.body.productReview; 
+
+  Product.findById(prodId)
+    .then(product => {
+      product.reviews.push(review);
+      return product.save()
+    })
+    .then(product => {
+      res.render('shop/product-reviews', {
+        product: product,
+        pageTitle: product.title,
+        path: '/products'
+      });  
+    })
+    .catch(err => console.log(err));
+};

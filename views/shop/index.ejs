@@ -6,9 +6,20 @@
     <%- include('../includes/navigation.ejs') %>
 
     <main>
+        <div>
+            <h1 class="centered">Welcome to All The Game!</h1>
+            <p>
+                All The Games is what you were looking for all these years.
+                This is the place where you can find all your favorite and not so favorite games!
+            </p>
+        </div>
+        <br/><br/>
         <% if (prods.length > 0) { %>
+            <% let mostPopular = [prods[0]] %>
+            <% prods.forEach(prod => {if (prod.reviews.length >= mostPopular[0].reviews.length) mostPopular = [prod]}) %>
+            <h2>The Most Popular Product</h2>
             <div class="grid">
-                <% for (let product of prods) { %>
+                <% for (let product of mostPopular) { %>
                     <article class="card product-item">
                         <header class="card__header">
                             <h1 class="product__title"><%= product.title %></h1>

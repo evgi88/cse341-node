@@ -99,3 +99,17 @@ exports.postDeleteProduct = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.postDeleteProductReviews = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.findById(prodId)
+    .then(product => {
+      product.reviews = []
+      console.log('DELETED PRODUCT REVIEWS');
+      return product.save()
+    })
+    .then(() => {
+      res.redirect(`/products/${prodId}/reviews`);
+    })
+    .catch(err => console.log(err));
+};
